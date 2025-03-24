@@ -1,18 +1,15 @@
 import React, { createContext, useReducer, ReactNode } from "react";
 
-type Activity = {
+type Act = {
   name: string;
   carbonValue: number;
 };
-
 type State = {
-  activities: Activity[];
+  activities: Act[];
 };
 
-type Action = { type: "ADD_ACTIVITY"; payload: Activity };
-
+type Action = { type: "ADD_ACTIVITY"; payload: Act };
 const initialState: State = { activities: [] };
-
 const activityReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "ADD_ACTIVITY":
@@ -21,9 +18,7 @@ const activityReducer = (state: State, action: Action): State => {
       return state;
   }
 };
-
 export const ActivityContext = createContext<{ state: State; dispatch: React.Dispatch<Action> } | undefined>(undefined);
-
 export const ActivityProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(activityReducer, initialState);
   return <ActivityContext.Provider value={{ state, dispatch }}>{children}</ActivityContext.Provider>;
